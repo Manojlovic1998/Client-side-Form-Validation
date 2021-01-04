@@ -18,12 +18,31 @@ function checkInputs() {
     let password2Value = password2.value.trim();
 
     if(usernameValue === '') {
-        // show error
-        // add error class
-        setErrorFor(username, 'Username cannot be blank');
+        setErrorFor(username, 'Username field cannot be blank');
     } else {
-        // add success class
         setSuccessFor(username);
+    }
+
+    if(emailValue === ''){
+        setErrorFor(email, 'Email field cannot be blank');
+    } else if(!isEmail(emailValue)) {
+        setErrorFor(email, 'Email is not valid');
+    } else {
+        setSuccessFor(email);
+    }
+
+    if(passwordValue === '') {
+        setErrorFor(password, 'Password field cannot be blank');
+    } else {
+        setSuccessFor(password);
+    }
+
+    if(password2Value === '') {
+        setErrorFor(password2, 'Repeat password field cannot be blank');
+    } else if(passwordValue !== password2Value) {
+        setErrorFor(password2, 'Passwords do not match');
+        } else {
+        setSuccessFor(password2);
     }
 }
 
@@ -41,4 +60,8 @@ function setErrorFor(input, message) {
 function setSuccessFor(input) {
     let formControl = input.parentElement;
     formControl.className = 'form-control success';
+}
+
+function isEmail(email){
+    return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
